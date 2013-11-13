@@ -1,6 +1,5 @@
 //one wheel is composed of 32 slices
 //16 black and 16 white.
-//360° = 16
 
 void initialize() {  
   int vl = digitalRead(leftEncoder);
@@ -116,7 +115,7 @@ void right(int speed, int steps) {
     }
   }
 
-  stop();
+  hardStop();
 }
 
 void left(int speed, int steps) {
@@ -173,7 +172,7 @@ void left(int speed, int steps) {
     }
   }
 
-  stop();
+  hardStop();
 }
 
 void stopLeft() {   

@@ -47,23 +47,28 @@ void loop() {
 
   switch(instruction) {
   case 'F': 
-    initialize();
     digitalWrite(11, HIGH);
-    forward(255, 16);
+    forward(255);
+    delay(100);
     break;
 
   case'R':  
-    initialize();
-    right(255, 8);
+    right(255);
+        delay(100);
     break;
 
   case'L':
-    initialize();
-    left(255, 8);
+    left(255);
+        delay(100);
     break;
 
   case'I':
     initialize();
+    break;
+    
+    case'B':
+    backward(255);
+        delay(100);
     break;
 
   case'O':
