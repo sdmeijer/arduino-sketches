@@ -2,8 +2,8 @@ void route(int i) {
 
   int led = i+22;  
 
-  //forward = 326
-  if (vals[i] < 400 && vals[i] > 280) {
+  //forward = 326 = 4.7K
+  if (vals[i] < 500 && vals[i] > 325) {
 
     Serial1.print('F');
     Serial.println('F');
@@ -12,8 +12,8 @@ void route(int i) {
 
   }
 
-  //leftval = 511
-  if (vals[i] < 600 && vals[i] > 450) {
+  //leftval = 511 = 10 K
+  if (vals[i] < 700 && vals[i] > 550) {
     Serial1.print('L');
     Serial.println('L');
     digitalWrite(led,LOW);
@@ -21,15 +21,15 @@ void route(int i) {
   }
 
 
-  //rightVal = 183;
-  if (vals[i] < 250 && vals[i] > 100) {
+  //rightVal = 183 = 2.2
+  if (vals[i] < 319 && vals[i] > 180) {
     Serial1.print('R');
     Serial.println('R');
     digitalWrite(led,LOW);
     delay(1000);
   }
 
-  //function = 931
+  //function = 931 = 100K
   if (vals[i] > 850 && vals[i] < 990) {
     for ( int i = 12; i < 16; i++) {      
       if (vals[i] < 1023) {

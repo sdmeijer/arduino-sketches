@@ -6,7 +6,7 @@ void initialize() {
   int vl = digitalRead(leftEncoder);
 
   //forward left  
-  analogWrite(leftForward, 128);   
+  analogWrite(leftForward, 88);   
   digitalWrite(leftReverse, LOW);  
 
   while(digitalRead(leftEncoder) == vl);
@@ -18,7 +18,7 @@ void initialize() {
   int vr = digitalRead(rightEncoder);  
 
   //forward right
-  analogWrite(rightForward, 128);   
+  analogWrite(rightForward, 88);   
   digitalWrite(rightReverse, LOW);  
 
   while(digitalRead(rightEncoder) == vr);
@@ -142,7 +142,7 @@ void left(int speed, int steps) {
       } 
       else {
         //slowdown
-        analogWrite(leftForward, speed - 64);   
+        analogWrite(leftForward, 80);   
         digitalWrite(leftReverse, LOW);  
       }
 
@@ -163,7 +163,7 @@ void left(int speed, int steps) {
       else {
         //fullspeed
         digitalWrite(rightForward, LOW);   
-        analogWrite(rightReverse, speed - 64); 
+        analogWrite(rightReverse, 80); 
       }     
 
       if(vR != pvR) {

@@ -1,3 +1,5 @@
+//VC edition
+
 #define FORWARD 1
 #define BACKWARD 0
 
@@ -47,16 +49,19 @@ void loop() {
 
   switch(instruction) {
   case 'F': 
+    initialize();
     digitalWrite(11, HIGH);
-    forward(255, 16);
+    forward(128, 16);
     break;
 
-  case'R':  
-    right(255, 8);
+  case'L':  
+    initialize();
+    right(128, 9);
     break;
 
-  case'L':
-    left(255, 8);
+  case'R':
+    initialize();
+    left(138, 7);
     break;
 
   case'I':

@@ -49,17 +49,17 @@ void loop() {
   case 'F': 
     initialize();
     digitalWrite(11, HIGH);
-    forward(255, 16);
+    forward(128, 16);
     break;
 
   case'R':  
     initialize();
-    right(255, 8);
+    right(128, 8);
     break;
 
   case'L':
     initialize();
-    left(255, 8);
+    left(128, 8);
     break;
 
   case'I':
