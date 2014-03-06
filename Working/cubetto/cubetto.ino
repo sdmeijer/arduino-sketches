@@ -1,7 +1,22 @@
-//VC edition
+/*
+http://primo.io
+
+This sketch is part of the Primo prototype documentation.
+http://docs.primo.io
+
+Tested on the Arduino UNO.
+Load this into Cubetto, the little cube robot.
+*/
 
 #define FORWARD 1
 #define BACKWARD 0
+
+//radio characters
+#define STOP 'O'
+#define LEFT 'L'
+#define RIGHT 'R'
+#define FORWARD 'F'
+#define INIT 'I'
 
 //left motor
 const int leftEnable = 13;
@@ -21,19 +36,21 @@ char instruction = 'O';
 
 void setup() {
 
-  Serial.begin(9600); 
+  Serial.begin(9600);
 
-  pinMode(13, OUTPUT);
-  pinMode(11, OUTPUT);
-  pinMode(10, OUTPUT);
+  //initialize left
+  pinMode(leftEnable, OUTPUT);
+  pinMode(leftReverse, OUTPUT);
+  pinMode(leftForward, OUTPUT);
 
-  pinMode(12, OUTPUT);
-  pinMode(6, OUTPUT);
-  pinMode(9, OUTPUT);
+  //initialize right
+  pinMode(rightEnable, OUTPUT);
+  pinMode(rightForward, OUTPUT);
+  pinMode(rightReverse, OUTPUT);
 
   //enable motors
   digitalWrite(leftEnable, HIGH);
-  digitalWrite(rightEnable, HIGH);  
+  digitalWrite(rightEnable, HIGH);
 
   //initialize aligns the wheels
   initialize();
@@ -43,39 +60,41 @@ void setup() {
 
 void loop() {
 
+  //read rom the xbee
   if (Serial.available() > 0) {
     instruction = Serial.read();
   }
 
-  switch(instruction) {
-  case 'F': 
-    initialize();
-    digitalWrite(11, HIGH);
-    forward(128, 16);
-    break;
+  //decode instruction
+  switch (instruction) {    
 
-  case'L':  
-    initialize();
-    right(128, 9);
-    break;
+    case FORWARD:
+      initialize();
+      digitalWrite(11, HIGH);
+      forward(128, 16);
+      break;
 
-  case'R':
-    initialize();
-    left(138, 7);
-    break;
+    case LEFT:
+      initialize();
+      left(128, 9);
+      break;
 
-  case'I':
-    initialize();
-    break;
+    case RIGHT:
+      initialize();
+      right(138, 7);
+      break;
 
-  case'O':
-    stop();
-    break;
+    case INIT:
+      initialize();
+      break;
+  
+    case STOP:
+      stop();
+      break;
 
-  default:
-    stop();
-    break;
-
+    default:
+      stop();
+      break;
   }
 }
 

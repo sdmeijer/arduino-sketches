@@ -1,56 +1,59 @@
 //one wheel is composed of 32 slices
 //16 black and 16 white.
-//360° = 16
 
-void initialize() {  
+//rotate wheels until the next sign
+void initialize() {
   int vl = digitalRead(leftEncoder);
 
-  //forward left  
-  analogWrite(leftForward, 88);   
-  digitalWrite(leftReverse, LOW);  
+  //forward left
+  analogWrite(leftForward, 88);
+  digitalWrite(leftReverse, LOW);
 
-  while(digitalRead(leftEncoder) == vl);
+  while (digitalRead(leftEncoder) == vl);
 
   stopLeft();
 
   delay(100);
 
-  int vr = digitalRead(rightEncoder);  
+  int vr = digitalRead(rightEncoder);
 
   //forward right
-  analogWrite(rightForward, 88);   
-  digitalWrite(rightReverse, LOW);  
+  analogWrite(rightForward, 88);
+  digitalWrite(rightReverse, LOW);
 
-  while(digitalRead(rightEncoder) == vr);
+  while (digitalRead(rightEncoder) == vr);
 
   stopRight();
 }
 
-void backward(int speed, int steps) {      
+/* MOTION FUNCTIONS */
+
+//not used
+void backward(int speed, int steps) {
   int vL, pvL = 0;
   int vR, pvR = 0;
 
   int counterL, counterR = 0;
 
   //right backward
-  digitalWrite(rightForward, LOW);   
-  analogWrite(rightReverse, speed); 
+  digitalWrite(rightForward, LOW);
+  analogWrite(rightReverse, speed);
 
   //left backward
-  digitalWrite(leftForward, LOW);   
-  analogWrite(leftReverse, speed);  
+  digitalWrite(leftForward, LOW);
+  analogWrite(leftReverse, speed);
 
 
-  while(counterL <= steps && counterR <= steps) {
-    if(counterL <= steps) {
+  while (counterL <= steps && counterR <= steps) {
+    if (counterL <= steps) {
       vL = digitalRead(leftEncoder);
-      if(vL != pvL) counterL++;
-      pvL = vL;     
-    } 
+      if (vL != pvL) counterL++;
+      pvL = vL;
+    }
     if (counterR <= steps) {
       vR = digitalRead(rightEncoder);
-      if(vR != pvR) counterR++;
-      pvR = vR;     
+      if (vR != pvR) counterR++;
+      pvR = vR;
     }
   }
 
@@ -64,55 +67,24 @@ void forward(int speed, int steps) {
   int counterL, counterR = 0;
 
   //right forward
-  digitalWrite(rightForward, speed);   
-  analogWrite(rightReverse, LOW); 
+  digitalWrite(rightForward, speed);
+  analogWrite(rightReverse, LOW);
 
   //left forward
-  digitalWrite(leftForward, speed);   
-  analogWrite(leftReverse, LOW);  
+  digitalWrite(leftForward, speed);
+  analogWrite(leftReverse, LOW);
 
 
-  while(counterL <= steps && counterR <= steps) {
-    if(counterL <= steps) {
+  while (counterL <= steps && counterR <= steps) {
+    if (counterL <= steps) {
       vL = digitalRead(leftEncoder);
-      if(vL != pvL) counterL++;
-      pvL = vL;     
-    } 
-    if (counterR <= steps) {
-      vR = digitalRead(rightEncoder);
-      if(vR != pvR) counterR++;
-      pvR = vR;     
+      if (vL != pvL) counterL++;
+      pvL = vL;
     }
-  }
-
-  stop();
-}
-
-void right(int speed, int steps) {
-  int vL, pvL = 0;
-  int vR, pvR = 0;
-
-  int counterL, counterR = 0;
-
-  //right forward
-  digitalWrite(rightForward, speed);   
-  analogWrite(rightReverse, LOW); 
-
-  //left backward
-  digitalWrite(leftForward, LOW);   
-  analogWrite(leftReverse, speed);  
-
-
-  while(counterL <= steps && counterR <= steps) {
-    if(counterL <= steps) {
-      vL = digitalRead(leftEncoder);
-      if(vL != pvL) counterL++;
-      pvL = vL;     
-    } 
     if (counterR <= steps) {
       vR = digitalRead(rightEncoder);
-      if(vR != pvR) counterR++;
-      pvR = vR;     
+      if (vR != pvR) counterR++;
+      pvR = vR;
     }
   }
 
@@ -123,66 +95,76 @@ void left(int speed, int steps) {
   int vL, pvL = 0;
   int vR, pvR = 0;
 
-  int counterL = 0, counterR = 0;
+  int counterL, counterR = 0;
 
-  pvL = digitalRead(leftEncoder);
-  pvR = digitalRead(rightEncoder);
+  //right forward
+  digitalWrite(rightForward, speed);
+  analogWrite(rightReverse, LOW);
 
-  while(counterL <= steps || counterR <= steps) {
+  //left backward
+  digitalWrite(leftForward, LOW);
+  analogWrite(leftReverse, speed);
 
-    if(counterL <= steps) {
-
+  //count rotation
+  while (counterL <= steps && counterR <= steps) {
+    if (counterL <= steps) {
       vL = digitalRead(leftEncoder);
-
-      //left 
-      if (counterL < (steps - 2)) {
-        //fullspeed
-        analogWrite(leftForward, speed);   
-        digitalWrite(leftReverse, LOW);  
-      } 
-      else {
-        //slowdown
-        analogWrite(leftForward, 80);   
-        digitalWrite(leftReverse, LOW);  
-      }
-
-      if(vL != pvL){ 
-        counterL++;
-        pvL = vL;   
-      }
-    } 
-
+      if (vL != pvL) counterL++;
+      pvL = vL;
+    }
     if (counterR <= steps) {
       vR = digitalRead(rightEncoder);
-
-      if (counterR < (steps - 2)) {
-        //slowdown
-        digitalWrite(rightForward, LOW);   
-        analogWrite(rightReverse, speed); 
-      } 
-      else {
-        //fullspeed
-        digitalWrite(rightForward, LOW);   
-        analogWrite(rightReverse, 80); 
-      }     
-
-      if(vR != pvR) {
-        counterR++;
-        pvR = vR;     
-      }
+      if (vR != pvR) counterR++;
+      pvR = vR;
     }
   }
 
   stop();
 }
 
-void stopLeft() {   
-  digitalWrite(leftForward, LOW);   
-  digitalWrite(leftReverse, LOW);   
+void right(int speed, int steps) {
+
+  int vL, pvL = 0;
+  int vR, pvR = 0;
+
+  int counterL = 0, counterR = 0;
+
+  pvL = digitalRead(leftEncoder);
+  pvR = digitalRead(rightEncoder);
+
+  //right reverse
+  digitalWrite(rightForward, LOW);
+  analogWrite(rightReverse, speed);
+
+  //left forward
+  digitalWrite(leftReverse, LOW);
+  analogWrite(leftForward, speed);
+
+  //count rotation
+  while (counterL <= steps || counterR <= steps) {
+    if (counterL <= steps) {
+      vL = digitalRead(leftEncoder);
+      if (vL != pvL) counterL++;
+      pvL = vL;
+    }
+    if (counterR <= steps) {
+      vR = digitalRead(rightEncoder);
+      if (vR != pvR) counterR++;
+      pvR = vR;
+    }
+  }
+
+  stop();
+}
+
+/* STOP FUNCTIONS */
+void stopLeft() {
+  digitalWrite(leftForward, LOW);
+  digitalWrite(leftReverse, LOW);
 }
 
 void stopRight() {
-  digitalWrite(rightForward, LOW);   
+  digitalWrite(rightForward, LOW);
   digitalWrite(rightReverse, LOW);
 }
 
@@ -192,30 +174,9 @@ void stop() {
 }
 
 void hardStop() {
-  digitalWrite(leftForward, HIGH);   
-  digitalWrite(leftReverse, HIGH); 
+  digitalWrite(leftForward, HIGH);
+  digitalWrite(leftReverse, HIGH);
 
-  digitalWrite(rightForward, HIGH);   
-  digitalWrite(rightReverse, HIGH); 
+  digitalWrite(rightForward, HIGH);
+  digitalWrite(rightReverse, HIGH);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

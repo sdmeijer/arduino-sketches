@@ -1,4 +1,4 @@
-#Primo Prototyp Arduino Sketches
+#Primo Prototype Arduino Sketches
 
 Arduino sketches for the prototype
 
