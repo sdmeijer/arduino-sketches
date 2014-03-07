@@ -1,58 +1,56 @@
-void route(int i) {  
+void route(int i) {
 
-  int led = i+22;  
+  int led = i + 22;
 
-  //forward = 326 = 4.7K
-  if (vals[i] < 500 && vals[i] > 325) {
-
+  //forward
+  if (vals[i] < (forwardVal - gap) && vals[i] > (forwardVal + gap)) {
     Serial1.print('F');
     Serial.println('F');
-    digitalWrite(led,LOW);
+    digitalWrite(led, LOW);
     delay(1500);
-
   }
 
-  //leftval = 511 = 10 K
-  if (vals[i] < 700 && vals[i] > 550) {
+  //left
+  if (vals[i] < (leftVal - gap) && vals[i] > (leftVal + gap)) {
     Serial1.print('L');
     Serial.println('L');
-    digitalWrite(led,LOW);
+    digitalWrite(led, LOW);
     delay(1000);
   }
 
 
-  //rightVal = 183 = 2.2
-  if (vals[i] < 319 && vals[i] > 180) {
+  //right
+  if (vals[i] < (rightVal - gap) && vals[i] > (rightVal + gap)) {
     Serial1.print('R');
     Serial.println('R');
-    digitalWrite(led,LOW);
+    digitalWrite(led, LOW);
     delay(1000);
   }
 
-  //function = 931 = 100K
-  if (vals[i] > 850 && vals[i] < 990) {
-    for ( int i = 12; i < 16; i++) {      
+  //function
+  if (vals[i] < (functionVal - gap) && vals[i] > (functionVal + gap)) {
+    
+    //route function line
+    for ( int i = 12; i < 16; i++) {
       if (vals[i] < 1023) {
+        //INFINITE LOOP FOR THE WIN!!
         route(i);
       }
-      else {        
+      else {
         break;
       }
     }
     
+    //turn function leds back on
     for (int i = 12; i < 16; i++) {
       if (vals[i] < 1023) {
-        digitalWrite(i+22,HIGH);
+        digitalWrite(i + 22, HIGH);
       }
     }
-    
     delay(500);
-    
-   
-    
   }
 
-} 
+}
 
 
 

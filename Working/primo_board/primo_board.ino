@@ -1,21 +1,34 @@
-//fixed resistor: 10K
-//10K = 500
-//100K = 920
-//4.7K = 319
-//2.2 = 178
-//220 = 20
+/*
+http://primo.io
 
+This sketch is part of the Primo Prototype Documentation.
+http://docs.primo.io
+
+Tested on the Arduino Mega 2560.
+Load this into the Interface Board.
+
+ANALOG VALUES FOR DIFFERENT RESISTORS:
+10KΩ = 500
+100KΩ = 920
+4.7KΩ = 319
+220Ω = 20
+*/
+
+//4.7kΩ
 int forwardVal = 326;
+//10kΩ
 int leftVal = 511;
-int rightVal = 183;
-int funcVal = 931;
+//220Ω
+int rightVal = 22;
+//100kΩ
+int functionVal = 931;
+//range 
+int gap = 50;
 
-int gap = 100;
-
-int buttonPin = 46;
+int buttonPin = 50;
 int butVal, pButVal;
 
-boolean execute = false;
+boolean isExecuting = false;
 
 int vals[16];
 
@@ -32,7 +45,8 @@ void setup() {
 }
 
 void loop() {
-
+  
+  //turn on LEDs if a block is inserted
   for(int i = 0; i < 16; i++) {
     int led = i+22;
 
@@ -46,12 +60,13 @@ void loop() {
   }
 
   butVal = digitalRead(buttonPin);
-
-  if(butVal == HIGH && pButVal == LOW && execute == false) {
-    execute = true;
+  
+  //if button press & not executing
+  if(butVal == HIGH && pButVal == LOW && isExecuting == false) {
+    isExecuting = true;
   }
 
-  if(execute) {
+  if(isExecuting) {
     readPins();
 
     for ( int i = 0; i < 12; i++) {
@@ -64,7 +79,7 @@ void loop() {
     }    
   }  
   
-  execute = false;
+  isExecuting = false;
   pButVal = butVal;
 
   //Serial.println(analogRead(0));

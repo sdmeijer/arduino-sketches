@@ -1,7 +1,7 @@
 /*
 http://primo.io
 
-This sketch is part of the Primo prototype documentation.
+This sketch is part of the Primo Prototype Documentation.
 http://docs.primo.io
 
 Tested on the Arduino UNO.
@@ -11,7 +11,7 @@ Load this into Cubetto, the little cube robot.
 #define FORWARD 1
 #define BACKWARD 0
 
-//radio characters
+//serial protocol
 #define STOP 'O'
 #define LEFT 'L'
 #define RIGHT 'R'
