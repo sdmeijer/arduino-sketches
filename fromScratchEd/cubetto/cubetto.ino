@@ -64,31 +64,31 @@ void setup() {
 
 void loop() {
 
-  //read rom the xbee
+  //read from the xbee
   if (Serial.available() > 0) {
     instruction = Serial.read();
   }
 
   if (instruction == 'F') {
-    initialize(1);
+    //initialize(1);
       forward(128, 16);
   } else
   if (instruction == 'B') {
-    initialize(1);
+    //initialize(1);
       backward(128, 16);
   } else
   if (instruction == 'R') {
-    initialize(1);
+    //initialize(1);
       right(138, 7);
   } else
   if (instruction == 'L') {
-    initialize(1);
+    //initialize(1);
       left(138, 7);
   } else
   if (instruction == 'I') {
       initialize(0);
   } else {
-      stop();
+      //stop();
   }    
 
 /*

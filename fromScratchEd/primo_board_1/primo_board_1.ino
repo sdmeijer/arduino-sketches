@@ -208,6 +208,14 @@ void loop() {
       else {
         break;
       }
+
+      char instruction = 'O';
+      
+      while (instruction != 'S') {
+        if (Serial.available() > 0) {
+          instruction = Serial.read();
+        }
+      }
     }
     blinkLEDs();
     

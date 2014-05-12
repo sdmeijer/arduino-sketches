@@ -6,14 +6,14 @@ void route(int i) {
   if (vals[i] > (forwardVal - gap) && vals[i] < (forwardVal + gap)) {
     Serial.println('F');
     transmitLED(led, 0);
-    delay(2000);
+    //delay(2000);
   }
 
   //left
   if (vals[i] > (leftVal - gap) && vals[i] < (leftVal + gap)) {
     Serial.println('L');
     transmitLED(led, 0);
-    delay(1500);
+    //delay(1500);
   }
 
 
@@ -21,7 +21,7 @@ void route(int i) {
   if (vals[i] > (rightVal - gap) && vals[i] < (rightVal + gap)) {
     Serial.println('R');
     transmitLED(led, 0);
-    delay(1500);
+    //delay(1500);
   }
 
   //function

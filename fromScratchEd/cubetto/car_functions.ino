@@ -292,6 +292,8 @@ void stop() {
   
   digitalWrite(leftEnable, HIGH);
   digitalWrite(rightEnable, HIGH);
+  
+  Serial.println('S');
 }
 
 void hardStop() {
