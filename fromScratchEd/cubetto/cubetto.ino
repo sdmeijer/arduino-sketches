@@ -79,58 +79,18 @@ void loop() {
   } else
   if (instruction == 'R') {
     //initialize(1);
-      right(138, 7);
+      right(130, 7);
   } else
   if (instruction == 'L') {
     //initialize(1);
-      left(138, 7);
+      left(150, 5);
   } else
   if (instruction == 'I') {
       initialize(0);
-  } else {
+  } //else {
       //stop();
-  }    
+  //}    
 
-/*
-  //decode instruction
-  switch (instruction) {    
-    case FORWARD:
-      //initialize();
-      //digitalWrite(11, HIGH);
-      forward(128, 16);
-      break;
-
-    case BACKWARD:
-      //initialize();
-      //digitalWrite(11, HIGH);
-      backward(128, 16);
-      break;
-      
-    case LEFT:
-      //initialize();
-      //digitalWrite(11, HIGH);
-      left(128, 9);
-      break;
-
-    case RIGHT:
-      //initialize();
-      //digitalWrite(11, HIGH);
-      right(138, 7);
-      break;
-
-    case INIT:
-      initialize();
-      break;
-  
-    case STOP:
-      stop();
-      break;
-
-    default:
-      stop();
-      break;
-  }
-  */
   instruction = 'O';
 }
 

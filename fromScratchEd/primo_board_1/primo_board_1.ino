@@ -44,6 +44,8 @@ const int analogPinY1 = A0;
 const int analogPinX2 = A3;
 const int analogPinY2 = A1;
 
+char instruction = 'O';
+
 byte primo[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int vals[16] = {1023, 1023, 1023, 1023, 1023, 1023, 1023, 1023, 1023, 1023, 1023, 1023, 1023, 1023, 1023, 1023};
 int primoP[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -140,6 +142,19 @@ void setup() {
   blinkLEDs();
 }
 
+void waitCubetto() {
+  unsigned long time = millis();
+  
+  while (instruction != 'S') {
+    if (Serial.available() > 0) {
+      instruction = Serial.read();
+    }
+    if ((millis() - time) > 2500) { // assume Cubetto is finished
+      instruction = 'S';
+    }
+  }
+}
+
 void loop() {
   
   readBlock();        //read the values of all blocks
@@ -203,19 +218,13 @@ void loop() {
         Serial.print(": ");
         Serial.println(vals[i]);
 #endif
+        instruction = 'O';
         route(i);
       }
       else {
         break;
       }
-
-      char instruction = 'O';
-      
-      while (instruction != 'S') {
-        if (Serial.available() > 0) {
-          instruction = Serial.read();
-        }
-      }
+      waitCubetto();
     }
     blinkLEDs();
     

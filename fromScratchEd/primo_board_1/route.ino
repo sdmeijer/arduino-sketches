@@ -4,24 +4,23 @@ void route(int i) {
 
   //forward
   if (vals[i] > (forwardVal - gap) && vals[i] < (forwardVal + gap)) {
-    Serial.println('F');
+    delay(250);
     transmitLED(led, 0);
-    //delay(2000);
+    Serial.println('F');
   }
 
   //left
   if (vals[i] > (leftVal - gap) && vals[i] < (leftVal + gap)) {
-    Serial.println('L');
+    delay(250);
     transmitLED(led, 0);
-    //delay(1500);
+    Serial.println('L');
   }
-
 
   //right
   if (vals[i] > (rightVal - gap) && vals[i] < (rightVal + gap)) {
-    Serial.println('R');
+    delay(250);
     transmitLED(led, 0);
-    //delay(1500);
+    Serial.println('R');
   }
 
   //function
@@ -32,11 +31,12 @@ void route(int i) {
     //route function line
     for ( int i = 12; i < 16; i++) {
       if (vals[i] < 1023) {
-        //INFINITE LOOP FOR THE WIN!!
+        instruction = 'O';
         route(i);
       } else {
         break;
       }
+      waitCubetto();
     }
     
     //turn function leds back on
@@ -45,9 +45,7 @@ void route(int i) {
         transmitLED(i, 1);
       }
     }
-    
-    delay(500);
-    
+    instruction = 'S';
   }
 
 }

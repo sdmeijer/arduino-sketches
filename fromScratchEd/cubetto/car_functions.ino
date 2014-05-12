@@ -190,7 +190,7 @@ void left(int speed, int steps) {
   analogWrite(leftReverse, speed);
 
   //count rotation
-  while (counterL <= steps && counterR <= steps) {
+  while (counterL <= steps) { // && counterR <= steps) {
     if (counterL <= steps) {
       vL = readLeft(pvL);
       if (vL != pvL) {
@@ -239,7 +239,7 @@ void right(int speed, int steps) {
   analogWrite(leftForward, speed);
 
   //count rotation
-  while (counterL <= steps && counterR <= steps) {
+  while (counterR <= steps) { // && counterL <= steps) {
     if (counterL <= steps) {
       vL = readLeft(pvL);
       if (vL != pvL) {
